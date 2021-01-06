@@ -1,0 +1,12 @@
+server:
+  port: 8761
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri:  https://github.com/ManjulaDevapura/scheduler-cloud-config-store
+          search-paths:
+           - '*-config/*service'
+          username: ManjulaDevapura
+          password: Madlove@7
