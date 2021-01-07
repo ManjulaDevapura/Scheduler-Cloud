@@ -1,6 +1,6 @@
 package com.manjuladev.schedulercloud.projectservice.service;
 
-import com.manjuladev.schedulercloud.commons.model.Project;
+import com.manjuladev.schedulercloud.commons.model.project.Project;
 
 import java.util.List;
 

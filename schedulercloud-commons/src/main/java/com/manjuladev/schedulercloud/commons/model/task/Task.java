@@ -1,4 +1,4 @@
-package com.manjuladev.schedulercloud.commons.model;
+package com.manjuladev.schedulercloud.commons.model.task;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

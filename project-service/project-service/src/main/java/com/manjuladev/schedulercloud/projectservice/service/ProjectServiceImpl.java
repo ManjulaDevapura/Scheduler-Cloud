@@ -1,6 +1,6 @@
 package com.manjuladev.schedulercloud.projectservice.service;
 
-import com.manjuladev.schedulercloud.commons.model.Project;
+import com.manjuladev.schedulercloud.commons.model.project.Project;
 import com.manjuladev.schedulercloud.projectservice.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
