@@ -5,7 +5,10 @@ import com.manjuladev.schedulercloud.commons.model.request.Filter;
 import com.manjuladev.schedulercloud.commons.model.task.Task;
 import com.manjuladev.schedulercloud.taskservice.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
 import java.util.List;
@@ -14,12 +17,24 @@ import java.util.Optional;
 @Service
 public class TaskServiceImpl implements TaskService {
 
+    @Bean
+    RestTemplate getRestTemplate(RestTemplateBuilder builder) {
+        return builder.build();
+    }
+
+    @Autowired
+    RestTemplate restTemplate;
     @Autowired
     TaskRepository taskRepository;
 
     @Override
     public Task save(Task task) {
-        return taskRepository.save(task);
+        Project respProj = restTemplate.getForObject("http://localhost:8770/services/project/" + task.getProjectRef(), Project.class);
+        if (respProj != null) {
+            return taskRepository.save(task);
+        } else {
+            return null;
+        }
     }
 
     @Override

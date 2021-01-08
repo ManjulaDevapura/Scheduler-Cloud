@@ -1,6 +1,7 @@
 package com.manjuladev.schedulercloud.schedulerservice.controller;
 
 import com.manjuladev.schedulercloud.commons.model.project.Project;
+import com.manjuladev.schedulercloud.commons.model.response.ProjectTaskDetailResponse;
 import com.manjuladev.schedulercloud.commons.model.response.ProjectTaskResponse;
 import com.manjuladev.schedulercloud.schedulerservice.service.SchedulerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class ScheduleController {
 
 
     @RequestMapping(value = "projectDetailed", method = RequestMethod.GET)
-    public ProjectTaskResponse getProjectWithTasks(@RequestParam int code) {
+    public ProjectTaskDetailResponse getProjectWithTasks(@RequestParam int code) throws Exception {
         return schedulerService.getProjectWithTasks(code);
     }
 

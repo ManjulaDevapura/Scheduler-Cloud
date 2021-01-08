@@ -2,8 +2,10 @@ package com.manjuladev.schedulercloud.schedulerservice.service;
 
 import com.manjuladev.schedulercloud.commons.model.project.Project;
 import com.manjuladev.schedulercloud.commons.model.request.Filter;
+import com.manjuladev.schedulercloud.commons.model.response.ProjectTaskDetailResponse;
 import com.manjuladev.schedulercloud.commons.model.response.ProjectTaskResponse;
 import com.manjuladev.schedulercloud.commons.model.task.Task;
+import com.manjuladev.schedulercloud.schedulerservice.component.CustomizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +18,7 @@ import java.util.List;
 
 @Service
 public class SchedulerServiceImple implements SchedulerService {
-    private String url = "http://localhost:8770/services/project";
+    private final String url = "http://localhost:8770/services/project";
 
     @Bean
     RestTemplate getRestTemplate(RestTemplateBuilder builder) {
@@ -27,16 +29,17 @@ public class SchedulerServiceImple implements SchedulerService {
     RestTemplate restTemplate;
 
 
-
     @Override
-    public ProjectTaskResponse getProjectWithTasks(int code) {
+    public ProjectTaskDetailResponse getProjectWithTasks(int code) throws Exception {
         Filter filter = new Filter();
         filter.setFilterType("project");
         filter.setFilterId(code);
 
         Project project = getProjectByCode(code);
         List<Task> task = getTasksByProjectRef(code);
-        return new ProjectTaskResponse(project, task);
+
+        if (project == null) throw new CustomizedException("NOT_FOUND", "Error from here", "404");
+        return new ProjectTaskDetailResponse(project, task);
     }
 
     private Project getProjectByCode(int code) {
@@ -50,8 +53,14 @@ public class SchedulerServiceImple implements SchedulerService {
         filter.setFilterId(projectRef);
         ResponseEntity<Task[]> responseEntity = restTemplate.postForEntity("http://localhost:8780/services/taskFiltered", filter, Task[].class);
         List<Task> respTask = Arrays.asList(responseEntity.getBody());
+
         return respTask;
     }
+
+    void checker() throws CustomizedException {
+        throw new CustomizedException("404", "Error from here", "Null");
+    }
+
 
 //    private Task getTasksByProjectRef2(Filter filter) {
 //        Task respTask = restTemplate.getForObject("http://localhost:8780/services/taskFiltered", filter, Task.class);

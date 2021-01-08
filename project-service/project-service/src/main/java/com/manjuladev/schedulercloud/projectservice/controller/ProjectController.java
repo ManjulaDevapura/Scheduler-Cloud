@@ -30,15 +30,17 @@ public class ProjectController {
     //    public Project getByCode(@RequestBody Project project){
     //    public ResponseEntity<Project> getByCode(@RequestParam int code) {
     //    Project project = projectService.getByCode(project.getCode());
+//    public ResponseEntity<Project> getByCode(@PathVariable int code) {
 
     @RequestMapping(value = "/project/{code}", method = RequestMethod.GET)
-    public ResponseEntity<Project> getByCode(@PathVariable int code) {
+    public Project getByCode(@PathVariable int code) {
         Project project = projectService.getByCode(code);
-        if (project == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(project);
-        } else {
-            return ResponseEntity.ok().body(project);
-        }
+//        if (project == null) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(project);
+//        } else {
+//            return ResponseEntity.ok().body(project);
+//        }
+        return project;
     }
 
 

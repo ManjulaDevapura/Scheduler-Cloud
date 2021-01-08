@@ -20,8 +20,13 @@ public class TaskController {
     TaskService taskService;
 
     @RequestMapping(value = "/task", method = RequestMethod.POST)
-    public Task save(@RequestBody Task task) {
-        return taskService.save(task);
+    public ResponseEntity save(@RequestBody Task task) {
+        Task taskRes = taskService.save(task);
+        if (taskRes == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid projectRef");
+        } else {
+            return ResponseEntity.ok().body(taskRes);
+        }
     }
 
     @RequestMapping(value = "/tasks", method = RequestMethod.GET)
