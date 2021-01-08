@@ -61,4 +61,14 @@ public class TaskServiceImpl implements TaskService {
             return null;
         }
     }
+
+    @Override
+    public List<Task> getAllByProjectRef(int projectRef) {
+        return taskRepository.findAllByProjectRef(projectRef);
+    }
+
+    @Override
+    public List<Task> getAllByUserId(int userId) {
+        return taskRepository.findAllByUserId(userId);
+    }
 }

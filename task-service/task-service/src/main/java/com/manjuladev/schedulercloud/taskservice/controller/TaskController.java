@@ -2,12 +2,14 @@ package com.manjuladev.schedulercloud.taskservice.controller;
 
 import com.manjuladev.schedulercloud.commons.model.project.Project;
 import com.manjuladev.schedulercloud.commons.model.task.Task;
+import com.manjuladev.schedulercloud.taskservice.repository.Filter;
 import com.manjuladev.schedulercloud.taskservice.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -22,13 +24,13 @@ public class TaskController {
         return taskService.save(task);
     }
 
-    @RequestMapping(value = "/task", method = RequestMethod.GET)
+    @RequestMapping(value = "/tasks", method = RequestMethod.GET)
     public List<Task> getAll() {
         return taskService.getAll();
     }
 
-        @RequestMapping(value = "/task/{id}", method = RequestMethod.GET)
-        public ResponseEntity<Task> getById(@PathVariable int id) {
+    @RequestMapping(value = "/task/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Task> getById(@PathVariable int id) {
         try {
             Task task = taskService.getById(id);
             if (task == null) {
@@ -55,7 +57,16 @@ public class TaskController {
     }
 
 
-
+    @RequestMapping(value = "/taskFiltered", method = RequestMethod.GET)
+    public List<Task> getAllById(@RequestBody Filter filter) {
+        if (filter.filterType.contains("project")) {
+            return taskService.getAllByProjectRef(filter.filterId);
+        } else if (filter.filterType.contains("user")) {
+            return taskService.getAllByUserId(filter.filterId);
+        } else {
+            return null;
+        }
+    }
 
 
 }
