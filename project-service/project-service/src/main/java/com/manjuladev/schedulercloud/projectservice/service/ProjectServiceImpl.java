@@ -26,10 +26,34 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Project getByCode(int code) {
-        Optional<Project> project =projectRepository.findById(code);
-        if(project.isPresent()){
+        Optional<Project> project = projectRepository.findById(code);
+        if (project.isPresent()) {
             return project.get();
-        }else{
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public Project update(Project project) {
+        Optional<Project> updateProj = projectRepository.findById(project.getCode());
+        if (updateProj.isPresent()) {
+            updateProj.get().setName(project.getName());
+            updateProj.get().setStatus(project.getStatus());
+            updateProj.get().setTotalHrs(project.getTotalHrs());
+            return projectRepository.save(updateProj.get());
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public Project delete(int code) {
+        Optional<Project> deletedProj = projectRepository.findById(code);
+        if (deletedProj.isPresent()) {
+            projectRepository.deleteById(code);
+            return deletedProj.get();
+        } else {
             return null;
         }
     }

@@ -8,4 +8,6 @@ public interface ProjectService {
     Project save(Project project);
     List<Project> getAll();
     Project getByCode(int code);
+    Project update(Project project);
+    Project delete(int code);
 }

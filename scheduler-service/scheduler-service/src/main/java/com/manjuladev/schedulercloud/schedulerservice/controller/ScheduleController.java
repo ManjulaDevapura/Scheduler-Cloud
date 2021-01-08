@@ -1,12 +1,9 @@
 package com.manjuladev.schedulercloud.schedulerservice.controller;
 
 import com.manjuladev.schedulercloud.commons.model.project.Project;
-import com.manjuladev.schedulercloud.schedulerservice.service.SchedulerService;
+import com.manjuladev.schedulercloud.schedulerservice.service.ProjectSchedulerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,22 +11,30 @@ import java.util.List;
 @RequestMapping(value = "/scheduler")
 public class ScheduleController {
     @Autowired
-    SchedulerService schedulerService;
+    ProjectSchedulerService projectSchedulerService;
 
     @RequestMapping(value = "project", method = RequestMethod.POST)
     public Project saveProject(@RequestBody Project project) {
-        System.out.println("Hi ****************************************************");
-        System.out.println("Hi ****************************************************");
-        System.out.println("Hi ****************************************************");
-        System.out.println(project);
-        System.out.println(project.getName());
-        System.out.println(project.getTotalHrs());
-        return schedulerService.saveProject(project);
+        return projectSchedulerService.saveProject(project);
     }
 
-//    List<Project> getProject();
-//    Project getProjectByCode();
-//    Project updateProject(Project project);
-//    Project deleteProject(int code);
+    @RequestMapping(value = "projects", method = RequestMethod.GET)
+    public List<Project> getProject() {
+        return projectSchedulerService.getProject();
+    }
 
+    @RequestMapping(value = "project", method = RequestMethod.GET)
+    public Project getProjectByCode(@RequestParam int code) {
+        return projectSchedulerService.getProjectByCode(code);
+    }
+
+    @RequestMapping(value = "project", method = RequestMethod.PATCH)
+    public Project updateProject(@RequestBody Project project) {
+        return projectSchedulerService.updateProject(project);
+    }
+
+    @RequestMapping(value = "project", method = RequestMethod.DELETE)
+    public Project deleteProject(@RequestParam int code) {
+        return projectSchedulerService.deleteProject(code);
+    }
 }

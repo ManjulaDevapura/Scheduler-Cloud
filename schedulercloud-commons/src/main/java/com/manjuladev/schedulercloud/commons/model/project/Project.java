@@ -4,18 +4,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
 
 @Entity
 @Table(name = "project")
 public class Project {
 
-//    int id;
+    //    int id;
     @Id
-        @GeneratedValue
+    @GeneratedValue
     int code;
     String name;
     int totalHrs;
     boolean status;
+    Date endDate;
+    int noOfUsers;
 
     public int getCode() {
         return code;
@@ -41,11 +44,27 @@ public class Project {
         this.totalHrs = totalHrs;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public int getNoOfUsers() {
+        return noOfUsers;
+    }
+
+    public void setNoOfUsers(int noOfUsers) {
+        this.noOfUsers = noOfUsers;
     }
 }

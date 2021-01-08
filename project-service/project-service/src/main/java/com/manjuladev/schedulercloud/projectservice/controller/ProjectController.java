@@ -21,32 +21,39 @@ public class ProjectController {
         return projectService.save(project);
     }
 
-    @RequestMapping(value = "/project", method = RequestMethod.GET)
+    @RequestMapping(value = "/projects", method = RequestMethod.GET)
     public List<Project> getAll() {
         return projectService.getAll();
     }
 
-    @RequestMapping(value = "/by-project-code", method = RequestMethod.GET)
-//    public Project getByCode(@RequestBody Project project){
-    public ResponseEntity<Project> getByCode(@RequestParam int code) {
+    //    public Project getByCode(@RequestBody Project project){
+    //    public ResponseEntity<Project> getByCode(@RequestParam int code) {
+    @RequestMapping(value = "/project/{code}", method = RequestMethod.GET)
+    public ResponseEntity<Project> getByCode(@PathVariable int code) {
         try {
-            System.out.println("*************************");
-            System.out.println("by-project-code");
-            System.out.println(code);
-//        System.out.println(project);
-//        System.out.println(project.getCode());
-            System.out.println("*************************");
-//        Project project = projectService.getByCode(project.getCode());
+            //    Project project = projectService.getByCode(project.getCode());
             Project project = projectService.getByCode(code);
             if (project == null) {
-//                return ResponseEntity.notFound().build();
+                //    return ResponseEntity.notFound().build();
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(project);
             } else {
                 return ResponseEntity.ok().body(project);
             }
         } catch (Exception e) {
-            System.out.println("HttpStatus.EXPECTATION_FAILED   %%%%%%%%%%%%%%");
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
         }
+    }
+
+
+
+    @RequestMapping(value = "/project", method = RequestMethod.PATCH)
+    public Project update(@RequestBody Project project) {
+        return projectService.update(project);
+    }
+
+
+    @RequestMapping(value = "/project/{code}", method = RequestMethod.DELETE)
+    public Project delete(@PathVariable int code) {
+        return projectService.delete(code);
     }
 }

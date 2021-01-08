@@ -6,11 +6,15 @@ import com.manjuladev.schedulercloud.commons.model.response.ProjectTaskResponse;
 
 import java.util.List;
 
-public interface SchedulerService {
+public interface ProjectSchedulerService {
 
     Project saveProject(Project project);
-//    List<Project> getProject();
-//    Project getProjectByCode();
-//    Project updateProject(Project project);
-//    Project deleteProject(int code);
+
+    List<Project> getProject();
+
+    Project getProjectByCode(int code);
+
+    Project updateProject(Project project);
+
+    Project deleteProject(int code);
 }
