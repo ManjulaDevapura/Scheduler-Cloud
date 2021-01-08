@@ -54,7 +54,7 @@ public class TaskController {
     }
 
 
-    @RequestMapping(value = "/task/{code}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/task/{id}", method = RequestMethod.DELETE)
     public Task delete(@PathVariable int id) {
         return taskService.delete(id);
     }

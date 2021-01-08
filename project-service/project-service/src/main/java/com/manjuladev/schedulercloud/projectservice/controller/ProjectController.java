@@ -35,12 +35,12 @@ public class ProjectController {
     @RequestMapping(value = "/project/{code}", method = RequestMethod.GET)
     public Project getByCode(@PathVariable int code) {
         Project project = projectService.getByCode(code);
+        return project;
 //        if (project == null) {
 //            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(project);
 //        } else {
 //            return ResponseEntity.ok().body(project);
 //        }
-        return project;
     }
 
 
