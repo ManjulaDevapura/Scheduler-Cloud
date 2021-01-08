@@ -38,9 +38,11 @@ public class ProjectServiceImpl implements ProjectService {
     public Project update(Project project) {
         Optional<Project> updateProj = projectRepository.findById(project.getCode());
         if (updateProj.isPresent()) {
-            updateProj.get().setName(project.getName());
-            updateProj.get().setStatus(project.getStatus());
-            updateProj.get().setTotalHrs(project.getTotalHrs());
+//            updateProj.get().setNoOfUsers(project.getNoOfUsers()!=0?project.getNoOfUsers():updateProj.get().getNoOfUsers());
+//            updateProj.get().setTotalHrs(project.getTotalHrs()!=0?project.getTotalHrs():updateProj.get().getTotalHrs());
+            updateProj.get().setName(project.getName() != null ? project.getName() : updateProj.get().getName());
+            updateProj.get().setStatus(project.getStatus() != null ? project.getStatus() : updateProj.get().getStatus());
+            updateProj.get().setEndDate(project.getEndDate() != null ? project.getEndDate() : updateProj.get().getEndDate());
             return projectRepository.save(updateProj.get());
         } else {
             return null;

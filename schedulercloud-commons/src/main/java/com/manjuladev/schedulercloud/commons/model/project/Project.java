@@ -10,13 +10,12 @@ import java.util.Date;
 @Table(name = "project")
 public class Project {
 
-    //    int id;
     @Id
     @GeneratedValue
     int code;
     String name;
     int totalHrs;
-    boolean status;
+    Boolean status = null;
     Date endDate;
     int noOfUsers;
 
@@ -44,7 +43,7 @@ public class Project {
         this.totalHrs = totalHrs;
     }
 
-    public boolean getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
