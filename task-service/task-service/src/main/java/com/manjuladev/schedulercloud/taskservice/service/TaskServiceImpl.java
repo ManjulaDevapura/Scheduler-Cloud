@@ -1,6 +1,7 @@
 package com.manjuladev.schedulercloud.taskservice.service;
 
 import com.manjuladev.schedulercloud.commons.model.project.Project;
+import com.manjuladev.schedulercloud.commons.model.request.Filter;
 import com.manjuladev.schedulercloud.commons.model.task.Task;
 import com.manjuladev.schedulercloud.taskservice.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ public class TaskServiceImpl implements TaskService {
         return taskRepository.findAll();
     }
 
+    //    public Optional<Task> getById(int id) {
+    //    return taskRepository.findById(id);
     @Override
     public Task getById(int id) {
         Optional<Task> task = taskRepository.findById(id);
@@ -62,12 +65,22 @@ public class TaskServiceImpl implements TaskService {
         }
     }
 
-    @Override
+    public List<Task> filterDivider(Filter filter) {
+        if (filter.getFilterType().contains("project")) {
+            return getAllByProjectRef(filter.getFilterId());
+        } else if (filter.getFilterType().contains("user")) {
+            return getAllByUserId(filter.getFilterId());
+        } else {
+            return null;
+        }
+    }
+
+
     public List<Task> getAllByProjectRef(int projectRef) {
         return taskRepository.findAllByProjectRef(projectRef);
     }
 
-    @Override
+
     public List<Task> getAllByUserId(int userId) {
         return taskRepository.findAllByUserId(userId);
     }

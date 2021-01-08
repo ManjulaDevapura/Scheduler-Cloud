@@ -31,16 +31,14 @@ public class TaskController {
 
     @RequestMapping(value = "/task/{id}", method = RequestMethod.GET)
     public ResponseEntity<Task> getById(@PathVariable int id) {
-        try {
-            Task task = taskService.getById(id);
-            if (task == null) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(task);
-            } else {
-                return ResponseEntity.ok().body(task);
-            }
-        } catch (Exception e) {
-            System.out.println("HttpStatus.EXPECTATION_FAILED   %%%%%%%%%%%%%%");
-            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
+//        public ResponseEntity<Optional<Task>> getById(@PathVariable int id) {
+//        return new ResponseEntity(taskService.getById(id),HttpStatus.OK);
+
+        Task task = taskService.getById(id);
+        if (task == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(task);
+        } else {
+            return ResponseEntity.ok().body(task);
         }
     }
 
@@ -57,15 +55,9 @@ public class TaskController {
     }
 
 
-    @RequestMapping(value = "/taskFiltered", method = RequestMethod.GET)
+    @RequestMapping(value = "/taskFiltered", method = RequestMethod.POST)
     public List<Task> getAllById(@RequestBody Filter filter) {
-        if (filter.getFilterType().contains("project")) {
-            return taskService.getAllByProjectRef(filter.getFilterId());
-        } else if (filter.getFilterType().contains("user")) {
-            return taskService.getAllByUserId(filter.getFilterId());
-        } else {
-            return null;
-        }
+        return taskService.filterDivider(filter);
     }
 
 

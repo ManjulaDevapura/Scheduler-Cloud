@@ -1,6 +1,8 @@
 package com.manjuladev.schedulercloud.projectservice.service;
 
 import com.manjuladev.schedulercloud.commons.model.project.Project;
+import com.manjuladev.schedulercloud.commons.model.request.Filter;
+import com.manjuladev.schedulercloud.commons.model.task.Task;
 import com.manjuladev.schedulercloud.projectservice.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,11 +64,22 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public List<Project> filterDivider(Filter filter) {
+        if (filter.getFilterType().contains("status")) {
+            return getAllByStatus(filter.getFilterBool());
+        } else if (filter.getFilterType().contains("endDate")) {
+            return getAllByEndDate(filter.getFilterDate());
+        } else {
+            return null;
+        }
+    }
+
+
     public List<Project> getAllByStatus(boolean status) {
         return projectRepository.findAllByStatus(status);
     }
 
-    @Override
+
     public List<Project> getAllByEndDate(Date endDate) {
         return projectRepository.findAllByEndDate(endDate);
     }

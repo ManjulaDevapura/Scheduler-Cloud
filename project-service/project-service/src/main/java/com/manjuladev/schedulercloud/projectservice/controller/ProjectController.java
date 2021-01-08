@@ -29,19 +29,15 @@ public class ProjectController {
 
     //    public Project getByCode(@RequestBody Project project){
     //    public ResponseEntity<Project> getByCode(@RequestParam int code) {
+    //    Project project = projectService.getByCode(project.getCode());
+
     @RequestMapping(value = "/project/{code}", method = RequestMethod.GET)
     public ResponseEntity<Project> getByCode(@PathVariable int code) {
-        try {
-            //    Project project = projectService.getByCode(project.getCode());
-            Project project = projectService.getByCode(code);
-            if (project == null) {
-                //    return ResponseEntity.notFound().build();
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(project);
-            } else {
-                return ResponseEntity.ok().body(project);
-            }
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
+        Project project = projectService.getByCode(code);
+        if (project == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(project);
+        } else {
+            return ResponseEntity.ok().body(project);
         }
     }
 
@@ -58,14 +54,8 @@ public class ProjectController {
     }
 
 
-    @RequestMapping(value = "/projectFiltered", method = RequestMethod.GET)
+    @RequestMapping(value = "/projectFiltered", method = RequestMethod.POST)
     public List<Project> getAllById(@RequestBody Filter filter) {
-        if (filter.getFilterType().contains("status")) {
-            return projectService.getAllByStatus(filter.getFilterBool());
-        } else if (filter.getFilterType().contains("endDate")) {
-            return projectService.getAllByEndDate(filter.getFilterDate());
-        } else {
-            return null;
-        }
+        return projectService.filterDivider(filter);
     }
 }
