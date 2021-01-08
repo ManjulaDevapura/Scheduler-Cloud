@@ -5,6 +5,7 @@ import com.manjuladev.schedulercloud.projectservice.repository.ProjectRepository
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,4 +60,16 @@ public class ProjectServiceImpl implements ProjectService {
             return null;
         }
     }
+
+    @Override
+    public List<Project> getAllByStatus(boolean status) {
+        return projectRepository.findAllByStatus(status);
+    }
+
+    @Override
+    public List<Project> getAllByEndDate(Date endDate) {
+        return projectRepository.findAllByEndDate(endDate);
+    }
+
+
 }

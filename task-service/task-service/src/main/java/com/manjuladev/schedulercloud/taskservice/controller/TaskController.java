@@ -1,8 +1,8 @@
 package com.manjuladev.schedulercloud.taskservice.controller;
 
 import com.manjuladev.schedulercloud.commons.model.project.Project;
+import com.manjuladev.schedulercloud.commons.model.request.Filter;
 import com.manjuladev.schedulercloud.commons.model.task.Task;
-import com.manjuladev.schedulercloud.taskservice.repository.Filter;
 import com.manjuladev.schedulercloud.taskservice.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -59,10 +59,10 @@ public class TaskController {
 
     @RequestMapping(value = "/taskFiltered", method = RequestMethod.GET)
     public List<Task> getAllById(@RequestBody Filter filter) {
-        if (filter.filterType.contains("project")) {
-            return taskService.getAllByProjectRef(filter.filterId);
-        } else if (filter.filterType.contains("user")) {
-            return taskService.getAllByUserId(filter.filterId);
+        if (filter.getFilterType().contains("project")) {
+            return taskService.getAllByProjectRef(filter.getFilterId());
+        } else if (filter.getFilterType().contains("user")) {
+            return taskService.getAllByUserId(filter.getFilterId());
         } else {
             return null;
         }

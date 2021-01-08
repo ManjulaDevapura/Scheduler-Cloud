@@ -1,6 +1,7 @@
 package com.manjuladev.schedulercloud.projectservice.controller;
 
 import com.manjuladev.schedulercloud.commons.model.project.Project;
+import com.manjuladev.schedulercloud.commons.model.request.Filter;
 import com.manjuladev.schedulercloud.projectservice.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,7 +46,6 @@ public class ProjectController {
     }
 
 
-
     @RequestMapping(value = "/project", method = RequestMethod.PATCH)
     public Project update(@RequestBody Project project) {
         return projectService.update(project);
@@ -55,5 +55,17 @@ public class ProjectController {
     @RequestMapping(value = "/project/{code}", method = RequestMethod.DELETE)
     public Project delete(@PathVariable int code) {
         return projectService.delete(code);
+    }
+
+
+    @RequestMapping(value = "/projectFiltered", method = RequestMethod.GET)
+    public List<Project> getAllById(@RequestBody Filter filter) {
+        if (filter.getFilterType().contains("status")) {
+            return projectService.getAllByStatus(filter.getFilterBool());
+        } else if (filter.getFilterType().contains("endDate")) {
+            return projectService.getAllByEndDate(filter.getFilterDate());
+        } else {
+            return null;
+        }
     }
 }
