@@ -56,7 +56,10 @@ public class ProjectServiceImpl implements ProjectService {
     public Project delete(int code) {
         Optional<Project> deletedProj = projectRepository.findById(code);
         if (deletedProj.isPresent()) {
-            projectRepository.deleteById(code);
+//                  delete all task before delete project
+//            projectRepository.deleteById(code);
+            deletedProj.get().setStatus(false);
+            projectRepository.save(deletedProj.get());
             return deletedProj.get();
         } else {
             return null;

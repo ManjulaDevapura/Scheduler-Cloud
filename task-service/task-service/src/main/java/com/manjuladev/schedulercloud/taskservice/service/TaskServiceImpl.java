@@ -32,6 +32,8 @@ public class TaskServiceImpl implements TaskService {
         Project respProj = restTemplate.getForObject("http://localhost:8770/services/project/" + task.getProjectRef(), Project.class);
         if (respProj != null) {
             if (respProj.getStatus()) {
+                respProj.setTotalHrs(respProj.getTotalHrs() + task.getNoHrs());
+                Project respProjNew = restTemplate.patchForObject("http://localhost:8770/services/project", respProj, Project.class);
                 return taskRepository.save(task);
             } else {
                 return null;

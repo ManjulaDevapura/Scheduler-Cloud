@@ -1,0 +1,361 @@
+{
+	"info": {
+		"_postman_id": "5280a5d4-6245-41e6-8819-cc6bdc77564f",
+		"name": "SchedulerCloud_Postman",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "project",
+			"item": [
+				{
+					"name": "http://localhost:8770/services/project",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Manjula\",\r\n  \"totalHrs\": 10,\r\n  \"status\": true,\r\n  \"endDate\": \"2021-07-07\",\r\n  \"noOfUsers\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8770/services/project",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8770",
+							"path": [
+								"services",
+								"project"
+							]
+						},
+						"description": "Save to Project"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8770/services/projects",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8770/services/projects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8770",
+							"path": [
+								"services",
+								"projects"
+							]
+						},
+						"description": "Get from project"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8770/services/project/7",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8770/services/project/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8770",
+							"path": [
+								"services",
+								"project",
+								"7"
+							]
+						},
+						"description": "getByCode"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8770/services/project",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"code\": 7,\r\n  \"name\": \"ManjulaDev\",\r\n  \"totalHrs\": 197,\r\n  \"status\": false,\r\n  \"endDate\": \"2021-07-09\",\r\n  \"noOfUsers\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8770/services/project",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8770",
+							"path": [
+								"services",
+								"project"
+							]
+						},
+						"description": "update"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8770/services/project/2",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8770/services/project/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8770",
+							"path": [
+								"services",
+								"project",
+								"2"
+							]
+						},
+						"description": "Delete"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8770/services/projectFiltered",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"filterType\": \"status\",\r\n    \"filterBool\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8770/services/projectFiltered",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8770",
+							"path": [
+								"services",
+								"projectFiltered"
+							]
+						},
+						"description": "Filter by status"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8770/services/projectFiltered",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"filterType\": \"endDate\",\r\n    \"filterDate\": \"2021-01-07\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8770/services/projectFiltered",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8770",
+							"path": [
+								"services",
+								"projectFiltered"
+							]
+						},
+						"description": "Filter by end Date"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "schedule",
+			"item": [
+				{
+					"name": "http://localhost:8790/scheduler/projectDetailed?code=1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8790/scheduler/projectDetailed?code=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8790",
+							"path": [
+								"scheduler",
+								"projectDetailed"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Get Project and tasks according to project refference"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "task",
+			"item": [
+				{
+					"name": "http://localhost:8780/services/tasks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8780/services/tasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8780",
+							"path": [
+								"services",
+								"tasks"
+							]
+						},
+						"description": "Get all"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8780/services/task",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"adder\",\r\n    \"noHrs\": 4,\r\n    \"projectRef\": 1,\r\n    \"description\": \"Adding task\",\r\n    \"dueDate\": \"2021-01-07\",\r\n    \"userId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8780/services/task",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8780",
+							"path": [
+								"services",
+								"task"
+							]
+						},
+						"description": "Add task by checking project"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8780/services/task/2",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8780/services/task/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8780",
+							"path": [
+								"services",
+								"task",
+								"2"
+							]
+						},
+						"description": "Task by id"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8780/services/task",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"projectRef\": 1,\r\n    \"name\": \"updated\",\r\n    \"noHrs\": 18,\r\n    \"description\": \"77777\",\r\n    \"dueDate\": \"2021-01-09\",\r\n    \"userId\": 7\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8780/services/task",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8780",
+							"path": [
+								"services",
+								"task"
+							]
+						},
+						"description": "Update task"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8780/services/task/2",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8780/services/task/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8780",
+							"path": [
+								"services",
+								"task",
+								"2"
+							]
+						},
+						"description": "Delete task"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
